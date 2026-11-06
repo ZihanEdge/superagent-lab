@@ -1,0 +1,20 @@
+name: trigger-superagent
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post a test request as github-actions[bot]
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue comment 1 \
+            --repo "${{ github.repository }}" \
+            --body "@ZihanEdge Please create a file hello-superagent.md with a short greeting and open a pull request."
